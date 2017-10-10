@@ -1,1 +1,5 @@
 # piJoyNode
+
+## Dependencies
+
+- wiringpi-node
