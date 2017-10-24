@@ -1,4 +1,3 @@
-
 console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
 
 var joystick	= new VirtualJoystick({
@@ -27,10 +26,7 @@ setInterval(function(){
         outputEl.innerHTML	= '<b>Result:</b> '
                 + ' dx:'+joystick.deltaX()
                 + ' dy:'+joystick.deltaY()
-                + (joystick.right()	? ' right'	: '')
-                + (joystick.up()	? ' up'		: '')
-                + (joystick.left()	? ' left'	: '')
-                + (joystick.down()	? ' down' 	: '')	
+                + str
         if (str.indexOf("up") !== -1) {
 		outstr += 'forwards';
 	}
@@ -46,8 +42,10 @@ setInterval(function(){
 	if (str === '') {
 		outstr = 'stop'
 	}
-	xhr.open('GET', outstr, true);
+        if (outstr !== 'stop') {
+        	xhr.open('get', "drive?" + ("dx=" + joystick.deltaX() + "&dy=" + (-joystick.deltaY())), true);
+        } else {
+		xhr.open('GET', outstr, true);
+        }
 	xhr.send(null)
-console.log(outstr)
-	
 }, 1/30 * 1000);
