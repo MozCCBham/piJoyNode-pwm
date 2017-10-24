@@ -42,30 +42,35 @@ app.get("/drive", function(req, res) {
         forward_pin_L = 7
         backward_pin_R = 10
         backward_pin_L = 8
-        pin_high = Math.round(2*Math.sqrt(dx * dx + dy * dy))
-        pin_low = Math.round(2*Math.abs(dy))
+        pin_high = Math.round(Math.sqrt(dx * dx + dy * dy))
+        pin_low = Math.round(Math.abs(dy))
+	pin_back = Math.round(Math.pow((pin_high - pin_low)/100, 2) * 100)
 	console.log("High: " + pin_high)
 	console.log("Low:  " + pin_low)
         if (dy > 0) {
                 if (dx > 0) {
                         wpi.softPwmWrite(forward_pin_R, pin_low)
                         wpi.softPwmWrite(forward_pin_L, pin_high)
+			wpi.softPwmWrite(backward_pin_R, pin_back)
+			wpi.softPwmWrite(backward_pin_L, 0)
                 } else { 
                         wpi.softPwmWrite(forward_pin_R, pin_high)
                         wpi.softPwmWrite(forward_pin_L, pin_low)
+			wpi.softPwmWrite(backward_pin_R, 0)
+			wpi.softPwmWrite(backward_pin_L, pin_back)
                 }
-                wpi.softPwmWrite(backward_pin_R, 0)
-                wpi.softPwmWrite(backward_pin_L, 0)
         } else {
                 if (dx > 0) {
-                        wpi.softPwmWrite(backward_pin_R, pin_low)
-                        wpi.softPwmWrite(backward_pin_L, pin_high)
-                } else { 
-                        wpi.softPwmWrite(backward_pin_R, pin_high)
                         wpi.softPwmWrite(backward_pin_L, pin_low)
+                        wpi.softPwmWrite(backward_pin_R, pin_high)
+			wpi.softPwmWrite(forward_pin_L, pin_back)
+			wpi.softPwmWrite(forward_pin_R, 0)
+                } else { 
+                        wpi.softPwmWrite(backward_pin_L, pin_high)
+                        wpi.softPwmWrite(backward_pin_R, pin_low)
+			wpi.softPwmWrite(forward_pin_L, 0)
+			wpi.softPwmWrite(forward_pin_R, pin_back)
                 }
-                wpi.softPwmWrite(forward_pin_R, 0)
-                wpi.softPwmWrite(forward_pin_L, 0)
         }
 })                       
 app.get("/stop", function(req, res) {

@@ -4,7 +4,7 @@ var joystick	= new VirtualJoystick({
         container	: document.getElementById('container'),
         mouseSupport	: true,
         limitStickTravel: true,
-        stickRadius     : 50
+        stickRadius     : 100
 });
 joystick.addEventListener('touchStart', function(){
         console.log('down');
