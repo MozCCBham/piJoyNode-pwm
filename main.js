@@ -1,42 +1,57 @@
 var express = require("express");
 var app = express();
-rpio = require("rpio");
+var wpi = require("wiringpi-node")
+
+wpi.wiringPiSetupGpio()
 
 app.use(express.static(__dirname));
 
 app.get("/", function(req, res) {
         res.sendFile("index.html", {root : __dirname});
+        wpi.pinMode(7, wpi.OUTPUT);
+        wpi.pinMode(8, wpi.OUTPUT);
+        wpi.pinMode(9, wpi.OUTPUT);
+        wpi.pinMode(10, wpi.OUTPUT);
 })
 
 app.get("/forwards", function(req, res) {
-                rpio.write(7, rpio.HIGH);
-                rpio.write(8, rpio.LOW);
-                rpio.write(9, rpio.HIGH);
-                rpio.write(10, rpio.LOW);
+        wpi.pinMode(7, wpi.OUTPUT);
+        wpi.pinMode(8, wpi.OUTPUT);
+        wpi.pinMode(9, wpi.OUTPUT);
+        wpi.pinMode(10, wpi.OUTPUT);
+	console.log("forwards")
+        wpi.digitalWrite(7, wpi.HIGH);
+        wpi.digitalWrite(8, wpi.LOW);
+        wpi.digitalWrite(9, wpi.HIGH);
+        wpi.digitalWrite(10, wpi.LOW);
 })
 app.get("/backwards", function(req, res) {
-                rpio.write(7, rpio.LOW);
-                rpio.write(8, rpio.HIGH);
-                rpio.write(9, rpio.LOW);
-                rpio.write(10, rpio.HIGH);
+	console.log("backwards")
+        wpi.digitalWrite(7, wpi.LOW);
+        wpi.digitalWrite(8, wpi.HIGH);
+        wpi.digitalWrite(9, wpi.LOW);
+        wpi.digitalWrite(10, wpi.HIGH);
 })
 app.get("/left", function(req, res) {
-                rpio.write(7, rpio.HIGH);
-                rpio.write(8, rpio.LOW);
-                rpio.write(9, rpio.LOW);
-                rpio.write(10, rpio.HIGH);
+        wpi.digitalWrite(7, wpi.HIGH);
+        wpi.digitalWrite(8, wpi.LOW);
+        wpi.digitalWrite(9, wpi.LOW);
+        wpi.digitalWrite(10, wpi.HIGH);
+	console.log("left")
 })
 app.get("/right", function(req, res) {
-                rpio.write(7, rpio.LOW);
-                rpio.write(8, rpio.HIGH);
-                rpio.write(9, rpio.HIGH);
-                rpio.write(10, rpio.LOW);
+	console.log("right")
+        wpi.digitalWrite(7, wpi.LOW);
+        wpi.digitalWrite(8, wpi.HIGH);
+        wpi.digitalWrite(9, wpi.HIGH);
+        wpi.digitalWrite(10, wpi.LOW);
 })
 app.get("/stop", function(req, res) {
-                rpio.write(7, rpio.LOW);
-                rpio.write(8, rpio.LOW);
-                rpio.write(9, rpio.LOW);
-                rpio.write(10, rpio.LOW);
+	console.log("stop")
+        wpi.digitalWrite(7, wpi.LOW);
+        wpi.digitalWrite(8, wpi.LOW);
+        wpi.digitalWrite(9, wpi.LOW);
+        wpi.digitalWrite(10, wpi.LOW);
 })
 
 app.listen(3000)
