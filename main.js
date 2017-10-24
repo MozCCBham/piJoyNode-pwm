@@ -25,10 +25,38 @@ app.get("/forwards", function(req, res) {
         wpi.digitalWrite(9, wpi.HIGH);
         wpi.digitalWrite(10, wpi.LOW);
 })
+app.get("/forwardsleft", function(req, res) {
+	console.log("forwards left")
+        wpi.digitalWrite(7, wpi.HIGH);
+        wpi.digitalWrite(8, wpi.LOW);
+        wpi.digitalWrite(9, wpi.LOW);
+        wpi.digitalWrite(10, wpi.LOW);
+})
+app.get("/forwardsright", function(req, res) {
+	console.log("forwards left")
+        wpi.digitalWrite(7, wpi.LOW);
+        wpi.digitalWrite(8, wpi.LOW);
+        wpi.digitalWrite(9, wpi.HIGH);
+        wpi.digitalWrite(10, wpi.LOW);
+})
 app.get("/backwards", function(req, res) {
 	console.log("backwards")
         wpi.digitalWrite(7, wpi.LOW);
         wpi.digitalWrite(8, wpi.HIGH);
+        wpi.digitalWrite(9, wpi.LOW);
+        wpi.digitalWrite(10, wpi.HIGH);
+})
+app.get("/backwardsleft", function(req, res) {
+	console.log("forwards left")
+        wpi.digitalWrite(7, wpi.LOW);
+        wpi.digitalWrite(8, wpi.HIGH);
+        wpi.digitalWrite(9, wpi.LOW);
+        wpi.digitalWrite(10, wpi.LOW);
+})
+app.get("/backwardsright", function(req, res) {
+	console.log("forwards left")
+        wpi.digitalWrite(7, wpi.LOW);
+        wpi.digitalWrite(8, wpi.LOW);
         wpi.digitalWrite(9, wpi.LOW);
         wpi.digitalWrite(10, wpi.HIGH);
 })
