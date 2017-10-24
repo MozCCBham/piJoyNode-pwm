@@ -1,5 +1,6 @@
-# piJoyNode
+# piJoyNode-pwm
 
 ## Dependencies
 
 - wiringpi-node
+- express
